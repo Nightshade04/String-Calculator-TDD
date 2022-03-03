@@ -68,13 +68,13 @@ public class StringCalculatorTest {
 	@Test
 	public void testAddStringCustomDelimiter() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String delimiter = ";\n";
+		String delimiter = "[;]\n";
 		String numbers = delimiter + "1;2";
 		int result = calculator.add(numbers);
 		Assert.assertEquals(3, result);
 	}
 
-	// Wrong Format Test
+	// Wrong N Test
 	@Test
 	public void testAddWrongFormat() throws Exception {
 		StringCalculator calculator = new StringCalculator();
@@ -107,8 +107,8 @@ public class StringCalculatorTest {
 	@Test
 	public void testAddCustomDelimiterLength() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String delimiter = "***\n";
-		String numbers = delimiter + "1;2";
+		String delimiter = "[***]\n";
+		String numbers = delimiter + "1***2";
 		int result = calculator.add(numbers);
 		Assert.assertEquals(3, result);
 	}
@@ -117,20 +117,31 @@ public class StringCalculatorTest {
 	@Test
 	public void testAddMultipleCustomDelimiter() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String delimiter = ";\n-\n";
-		String numbers = delimiter + "1;2";
+		String delimiter = "[;]\n[-]\n";
+		String numbers = delimiter + "1;2-3";
 		int result = calculator.add(numbers);
-		Assert.assertEquals(3, result);
+		Assert.assertEquals(6, result);
 	}
 
 	// Multiple Custom Delimiter Test
 	@Test
 	public void testAddMultipleCustomDelimiterLength() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String delimiter = "***\n--\n";
-		String numbers = delimiter + "1;2";
+		String delimiter = "[***]\n[--]\n";
+		String numbers = delimiter + "1***2--3";
 		int result = calculator.add(numbers);
-		Assert.assertEquals(3, result);
+		Assert.assertEquals(6, result);
 	}
+	
+	// Multiple Custom Delimiter Test
+		@Test
+		public void testAddMultipleCustomDelimiterCommonSymbol() throws Exception {
+			StringCalculator calculator = new StringCalculator();
+			String delimiter = "[***]\n[--]\n";
+			String numbers = delimiter + "1***2---3";
+			exception.expect(Exception.class);
+			exception.expectMessage("negatives not allowed: -3");
+			calculator.add(numbers);
+		}
 
 }
