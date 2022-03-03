@@ -16,7 +16,7 @@ public class StringCalculatorTest {
 		StringCalculator calculator = new StringCalculator();
 		String numbers = "";
 		int result = calculator.add(numbers);
-		Assert.assertEquals(result, 0);
+		Assert.assertEquals(0, result);
 	}
 
 	// 2Numbers
@@ -25,7 +25,7 @@ public class StringCalculatorTest {
 		StringCalculator calculator = new StringCalculator();
 		String numbers = "1,2";
 		int result = calculator.add(numbers);
-		Assert.assertEquals(result, 3);
+		Assert.assertEquals(3, result);
 	}
 
 	// 3 Numbers
@@ -34,7 +34,7 @@ public class StringCalculatorTest {
 		StringCalculator calculator = new StringCalculator();
 		String numbers = "1,2,3";
 		int result = calculator.add(numbers);
-		Assert.assertEquals(result, 6);
+		Assert.assertEquals(6, result);
 	}
 
 	// Too many Numbers
@@ -52,34 +52,16 @@ public class StringCalculatorTest {
 			expectedResult += i;
 		}
 		result = calculator.add(numbers);
-		Assert.assertEquals(result, expectedResult);
-	}
-
-	// Space Separated Numbers 3 Numbers
-	@Test
-	public void testAddStringWithMultipleNumbersSpaceSeparated() throws Exception {
-		StringCalculator calculator = new StringCalculator();
-		String numbers = "1 2 3";
-		int result = calculator.add(numbers);
-		Assert.assertEquals(result, 6);
-	}
-
-	// Space Separated Numbers 2 Numbers
-	@Test
-	public void testAddStringSpaceSeparated() throws Exception {
-		StringCalculator calculator = new StringCalculator();
-		String numbers = "1 2";
-		int result = calculator.add(numbers);
-		Assert.assertEquals(result, 3);
+		Assert.assertEquals(expectedResult, result);
 	}
 
 	// Space Separated Numbers 2 Numbers
 	@Test
 	public void testAddStringNewlineSeparated() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String numbers = "1\n2";
+		String numbers = "1,\n2";
 		int result = calculator.add(numbers);
-		Assert.assertEquals(result, 3);
+		Assert.assertEquals(3, result);
 	}
 
 	// Custom Delimiter Test
@@ -89,14 +71,14 @@ public class StringCalculatorTest {
 		String delimiter = ";\n";
 		String numbers = delimiter + "1;2";
 		int result = calculator.add(numbers);
-		Assert.assertEquals(result, 3);
+		Assert.assertEquals(3, result);
 	}
 
 	// Wrong Format Test
 	@Test
 	public void testAddWrongFormat() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String numbers = "1\n";
+		String numbers = "1,\n";
 		exception.expect(Exception.class);
 		exception.expectMessage("Wrong number of Inputs");
 		calculator.add(numbers);
@@ -106,9 +88,9 @@ public class StringCalculatorTest {
 	@Test
 	public void testAddNegatives() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String numbers = "1,-2";
+		String numbers = "1,-2,-3";
 		exception.expect(Exception.class);
-		exception.expectMessage("negatives not allowed: -2");
+		exception.expectMessage("negatives not allowed: -2, -3");
 		calculator.add(numbers);
 	}
 
