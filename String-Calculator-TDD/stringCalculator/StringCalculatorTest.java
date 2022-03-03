@@ -55,11 +55,11 @@ public class StringCalculatorTest {
 		Assert.assertEquals(expectedResult, result);
 	}
 
-	// Space Separated Numbers 2 Numbers
+	// Newline Separation
 	@Test
 	public void testAddStringNewlineSeparated() throws Exception {
 		StringCalculator calculator = new StringCalculator();
-		String numbers = "1,\n2";
+		String numbers = "1\n2";
 		int result = calculator.add(numbers);
 		Assert.assertEquals(3, result);
 	}
@@ -92,6 +92,45 @@ public class StringCalculatorTest {
 		exception.expect(Exception.class);
 		exception.expectMessage("negatives not allowed: -2, -3");
 		calculator.add(numbers);
+	}
+
+	// Numbers Above 1000
+	@Test
+	public void testAddAbove1000() throws Exception {
+		StringCalculator calculator = new StringCalculator();
+		String numbers = "1,1000,2,3";
+		int result = calculator.add(numbers);
+		Assert.assertEquals(6, result);
+	}
+
+	// Custom Delimiter Test
+	@Test
+	public void testAddCustomDelimiterLength() throws Exception {
+		StringCalculator calculator = new StringCalculator();
+		String delimiter = "***\n";
+		String numbers = delimiter + "1;2";
+		int result = calculator.add(numbers);
+		Assert.assertEquals(3, result);
+	}
+
+	// Multiple Custom Delimiter Test
+	@Test
+	public void testAddMultipleCustomDelimiter() throws Exception {
+		StringCalculator calculator = new StringCalculator();
+		String delimiter = ";\n-\n";
+		String numbers = delimiter + "1;2";
+		int result = calculator.add(numbers);
+		Assert.assertEquals(3, result);
+	}
+
+	// Multiple Custom Delimiter Test
+	@Test
+	public void testAddMultipleCustomDelimiterLength() throws Exception {
+		StringCalculator calculator = new StringCalculator();
+		String delimiter = "***\n--\n";
+		String numbers = delimiter + "1;2";
+		int result = calculator.add(numbers);
+		Assert.assertEquals(3, result);
 	}
 
 }
